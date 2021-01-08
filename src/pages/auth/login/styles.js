@@ -21,4 +21,10 @@ export const LoginStyles = styled.div`
 			"main aside"
 			"footer aside"
 	}
+
+	@media(max-width: 1399px){
+		.container{
+			margin: 0px auto;
+		}
+	}
 `

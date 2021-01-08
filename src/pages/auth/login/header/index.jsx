@@ -11,7 +11,7 @@ const headerInfos = [{
     description: 'Pedro Henrique'
 }]
 
-const headerClass = headerInfos.length == 0 ? "" :  " border"
+const headerClass = headerInfos.length === 0 ? "" :  " border"
 
 const Header = () => {
     return (

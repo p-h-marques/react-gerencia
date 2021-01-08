@@ -8,8 +8,6 @@ import Main from './main/index'
 import Footer from './footer/index'
 import Aside from './aside/index'
 
-import {MainStyles} from '../login/main/styles'
-
 const Login = () => {
     return (
         <LoginStyles>
