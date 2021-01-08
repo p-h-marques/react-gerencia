@@ -58,4 +58,28 @@ export const MainStyles = styled.main`
             color: ${colors.error};
         }
     }
+
+    button{
+        padding: 20px 30px;
+        margin-right: 25px;
+        font-size: 24px;
+        line-height: 24px;
+        border-radius: 0px;
+        border: 1px solid ${colors.green};
+        background: ${colors.light};
+        color: ${colors.green};
+
+        &:hover, &:focus, &:active{
+            background: ${colors.gray_a};
+        }
+
+        &.highlight{
+            background: ${colors.green};
+            color: ${colors.light};
+
+            &:hover, &:focus, &:active{
+                background: ${colors.green_hover};
+            }
+        }
+    }
 `

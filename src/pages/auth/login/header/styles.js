@@ -8,7 +8,7 @@ export const HeaderStyles = styled.header`
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 37px 0px 40px 50px; //padding-bottom provisório
+    padding: 40px 0px 40px 50px; //padding-bottom provisório
 
     .border{
         border-left: 2px solid ${colors.dark};

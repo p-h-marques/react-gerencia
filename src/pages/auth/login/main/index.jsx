@@ -26,6 +26,18 @@ const Main = () => {
             </div>
         </MainStyles>
     )
+    // return (
+    //     <MainStyles>
+    //         <h1>
+    //             Parece que você é novo por aqui...<br />
+    //             Gostaria de criar uma conta com a gente?
+    //         </h1>
+    //         <div className="buttons">
+    //             <button type="button" className="highlight">sim, vamos lá!</button>
+    //             <button type="button">quero tentar outro email...</button>
+    //         </div>
+    //     </MainStyles>
+    // )
 }
 
 export default Main

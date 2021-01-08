@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const FooterStyles = styled.footer`
     grid-area: footer;
-    padding: 0px 0px 50px 50px;
+    padding: 40px 0px 40px 50px;
 
     a:hover, a:active, a:focus{
         text-decoration: underline;
