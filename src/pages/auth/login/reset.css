@@ -1,0 +1,46 @@
+* {
+	text-decoration: none;
+	box-sizing: border-box;
+	line-height: 1rem;
+	padding: 0px;
+    margin: 0px;
+}
+
+body {
+	font-family: "Lato", sans-serif;
+	font-size: 16px;
+	color: #393939;
+	background: #E5F0DF;
+	width: 100vw;
+	height: 100vh;
+    padding: 0px;
+    margin: 0px;
+	min-width: 400px;
+}
+
+div#root {
+	height: 100%;
+}
+
+a, a:hover, a:active {
+	color: #393939;
+	text-decoration: none;
+}
+
+p{
+	margin: 0px;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+input,
+select,
+textarea,
+button{
+	font-family:inherit;
+}
