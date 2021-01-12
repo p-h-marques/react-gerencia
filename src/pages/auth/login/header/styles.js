@@ -40,4 +40,21 @@ export const HeaderStyles = styled.header`
             line-height: 16px;
         }
     }
+
+    @media(max-width: 1199px){
+        padding: 30px 0px 30px 30px;
+
+        img{
+            height: 40px;
+        }
+
+        div.infos{
+            margin-left: 30px;
+            padding: 10px 0px 10px 20px;
+        }
+
+        div.info{
+            margin-right: 30px;
+        }
+    }
 `

@@ -15,7 +15,7 @@ export const MainStyles = styled.main`
         line-height: 60px;
         font-weight: 400;
         color: ${colors.green};
-        margin-bottom: 45px;;
+        margin-bottom: 45px;
     }
 
     input{
@@ -80,6 +80,53 @@ export const MainStyles = styled.main`
             &:hover, &:focus, &:active{
                 background: ${colors.green_hover};
             }
+        }
+    }
+
+    @media(max-width: 1199px){
+        padding: 30px;
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-width: unset;
+
+        h1{
+            font-size: 26px;
+            line-height: 36px;
+            margin-bottom: 36px;
+        }
+
+        input{
+            font-size: 22px;
+            padding: 0px 0px 5px 5px;
+            margin-bottom: 50px;
+        }
+
+        div.messages{
+            padding-left: 15px;
+        }
+
+        div.message{
+            margin-bottom: 20px;
+
+            img{
+                height: 12px;
+                margin-right: 5px;
+            }
+
+            span{
+                font-size: 14px;
+                line-height: 12px;
+                color: ${colors.error};
+            }
+        }
+
+        button{
+            padding: 15px 20px;
+            margin-right: 20px;
+            font-size: 20px;
+            line-height: 20px;
         }
     }
 `

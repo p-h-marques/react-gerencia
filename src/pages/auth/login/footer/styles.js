@@ -7,4 +7,9 @@ export const FooterStyles = styled.footer`
     a:hover, a:active, a:focus{
         text-decoration: underline;
     }
+
+    @media(max-width: 1199px){
+        font-size: 14px;
+        padding: 30px 0px 30px 30px;
+    }
 `

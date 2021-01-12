@@ -17,7 +17,7 @@ const Main = () => {
             <div className="messages">
                 {mainInfos.map(info => {
                     return (
-                        <div className="message">
+                        <div className="message" key={info}>
                             <img src={Error} alt="Erro"></img>
                             <span>{info}</span>
                         </div>

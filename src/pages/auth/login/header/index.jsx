@@ -22,7 +22,7 @@ const Header = () => {
                 {
                     headerInfos.map(info => {
                         return (
-                            <div className="info">
+                            <div className="info" key={info.title}>
                                 <p className="title">{info.title}</p>
                                 <p className="description">{info.description}</p>
                             </div>

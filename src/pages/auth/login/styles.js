@@ -27,4 +27,12 @@ export const LoginStyles = styled.div`
 			margin: 0px auto;
 		}
 	}
+
+	@media(max-width: 1199px){
+		padding: 0px 20px;
+
+		.container{
+			width: 100vw;
+		}
+	}
 `
