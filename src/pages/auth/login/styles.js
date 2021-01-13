@@ -32,6 +32,7 @@ export const LoginStyles = styled.div`
 		padding: 0px 20px;
 
 		.container{
+			grid-template-columns: 1fr 120px;
 			width: 100vw;
 		}
 	}

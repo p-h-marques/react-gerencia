@@ -133,4 +133,14 @@ export const MainStyles = styled.main`
     @media(max-width: 767px){
         min-height: unset;
     }
+
+    @media(max-width: 575px){
+        h1{
+            margin-bottom: 20px;
+        }
+
+        button{
+            margin: 20px 20px 0px 0px;
+        }
+    }
 `
