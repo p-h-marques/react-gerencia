@@ -12,4 +12,9 @@ export const FooterStyles = styled.footer`
         font-size: 14px;
         padding: 30px 0px 30px 30px;
     }
+
+    @media(max-width: 991px){
+        font-size: 14px;
+        padding: 0px 0px 0px 30px;
+    }
 `

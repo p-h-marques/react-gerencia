@@ -14,4 +14,10 @@ export const AsideStyles = styled.aside`
         cursor: pointer;
         background: ${colors.green_hover};
     }
+
+    @media(max-width: 991px){
+        img{
+            height: 36px;
+        }
+    }
 `

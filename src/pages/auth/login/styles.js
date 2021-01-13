@@ -35,4 +35,21 @@ export const LoginStyles = styled.div`
 			width: 100vw;
 		}
 	}
+
+	@media(max-width: 991px){
+		padding: 0px;
+
+		.container{
+			width: 100vw;
+			height: 100vh;
+
+			grid-template-columns: auto;
+			grid-template-rows: 100px auto 40px 80px;
+			grid-template-areas:
+				"header"
+				"main"
+				"footer"
+				"aside"
+		}
+	}
 `
