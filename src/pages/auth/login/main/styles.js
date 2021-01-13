@@ -129,4 +129,8 @@ export const MainStyles = styled.main`
             line-height: 20px;
         }
     }
+
+    @media(max-width: 767px){
+        min-height: unset;
+    }
 `

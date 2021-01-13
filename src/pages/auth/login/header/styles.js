@@ -61,4 +61,10 @@ export const HeaderStyles = styled.header`
     @media(max-width: 991px){
         padding: 20px 0px 20px 30px;
     }
+
+    @media(max-width: 767px){
+        div.infos{
+            display: none;
+        }
+    }
 `
