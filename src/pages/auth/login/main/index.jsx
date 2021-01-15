@@ -1,7 +1,7 @@
 import React from 'react'
 import {MainStyles} from './styles'
-
-import Error from '../../../../assets/auth/icon-error.svg'
+import Feedback from './Feedback'
+import Button from './Button'
 
 const mainInfos = [
     'mínimo de 8 dígitos',
@@ -16,12 +16,7 @@ const Main = () => {
                 placeholder="digite aqui sua senha, por favor!"></input>
             <div className="messages">
                 {mainInfos.map(info => {
-                    return (
-                        <div className="message" key={info}>
-                            <img src={Error} alt="Erro"></img>
-                            <span>{info}</span>
-                        </div>
-                    )
+                    return (<Feedback info={info} />)
                 })}
             </div>
         </MainStyles>
@@ -33,8 +28,8 @@ const Main = () => {
     //             Gostaria de criar uma conta com a gente?
     //         </h1>
     //         <div className="buttons">
-    //             <button type="button" className="highlight">sim, vamos lá!</button>
-    //             <button type="button">quero tentar outro email...</button>
+    //             <Button highlight={true} label="sim, vamos lá!" />
+    //             <Button highlight={false} label="quero tentar outro email.." />
     //         </div>
     //     </MainStyles>
     // )

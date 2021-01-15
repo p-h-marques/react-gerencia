@@ -1,5 +1,6 @@
 import React from 'react'
 import {HeaderStyles} from './styles'
+import UserInfo from './UserInfo'
 
 import Logo from '../../../../assets/auth/logo-horizontal-cores.svg'
 
@@ -21,12 +22,7 @@ const Header = () => {
             <div className={`infos${headerClass}`}>
                 {
                     headerInfos.map(info => {
-                        return (
-                            <div className="info" key={info.title}>
-                                <p className="title">{info.title}</p>
-                                <p className="description">{info.description}</p>
-                            </div>
-                        )
+                        return (<UserInfo title={info.title} description={info.description} />)
                     })
                 }
             </div>

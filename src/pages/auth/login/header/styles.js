@@ -25,22 +25,6 @@ export const HeaderStyles = styled.header`
         flex-direction: row;
     }
 
-    div.info{
-        margin-right: 50px;
-
-        p.title{
-            color: ${colors.gray_c};
-            line-height: 16px;
-            margin-bottom: 5px;
-        }
-
-        p.description{
-            color: ${colors.green};
-            font-weight: 700;
-            line-height: 16px;
-        }
-    }
-
     @media(max-width: 1199px){
         padding: 30px 0px 30px 30px;
 
@@ -52,19 +36,10 @@ export const HeaderStyles = styled.header`
             margin-left: 30px;
             padding: 10px 0px 10px 20px;
         }
-
-        div.info{
-            margin-right: 30px;
-        }
     }
 
     @media(max-width: 991px){
         padding: 20px 0px 20px 30px;
     }
 
-    @media(max-width: 767px){
-        div.infos{
-            display: none;
-        }
-    }
 `
