@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 
+import LoginProvider from './store/providers/LoginProvider'
+
 import Login from './pages/auth/login'
 
 const App = () => {
@@ -8,7 +10,9 @@ const App = () => {
         <Router>
             <Switch>
                 <Route exact path="/login">
-                    <Login></Login>
+                    <LoginProvider>
+                        <Login></Login>
+                    </LoginProvider>
                 </Route>
 
                 <Route exact path="/">

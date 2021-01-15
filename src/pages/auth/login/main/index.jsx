@@ -1,7 +1,10 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {MainStyles} from './styles'
-import Feedback from './Feedback'
-import Button from './Button'
+// import Feedback from './Feedback'
+// import Button from './Button'
+
+import LoginContext from '../../../../store/context/LoginContext'
+import {updateValue} from '../../../../store/actions'
 
 const mainInfos = [
     'mínimo de 8 dígitos',
@@ -9,16 +12,21 @@ const mainInfos = [
 ]
 
 const Main = () => {
+    const {state, dispatch} = useContext(LoginContext)
+
     return (
         <MainStyles>
-            <h1>Vamos escolher sua futura senha?</h1>
+            <h1>Olá! Digite seu melhor email:</h1>
             <input type="email" name="email"
-                placeholder="digite aqui sua senha, por favor!"></input>
-            <div className="messages">
+                placeholder="exemplo@dominio.com.br"
+                value={state.email}
+                onChange={(e)=>{ updateValue(dispatch, e.target.value) }}>
+            </input>
+            {/* <div className="messages">
                 {mainInfos.map(info => {
                     return (<Feedback info={info} />)
                 })}
-            </div>
+            </div> */}
         </MainStyles>
     )
     // return (
