@@ -3,7 +3,8 @@ import {createContext} from 'react'
 export const initialData = {
     email: '',
     password: '',
-    name: ''
+    name: '',
+    feedbacks: []
 }
 
 const LoginContext = createContext(initialData)

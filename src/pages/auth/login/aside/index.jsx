@@ -1,11 +1,16 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {AsideStyles} from './styles'
+
+import LoginContext from '../../../../store/context/LoginContext'
+import * as functions from '../../../../functions/login'
 
 import Arrow from '../../../../assets/auth/arrow.svg'
 
 const Aside = () => {
+    const {state, dispatch} = useContext(LoginContext)
+
     return (
-        <AsideStyles>
+        <AsideStyles onClick={ e => { functions.handleValidateEmail(dispatch, state.email) }}>
             <img src={Arrow} alt="Confirmar"></img>
         </AsideStyles>
     )

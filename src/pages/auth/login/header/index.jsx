@@ -4,13 +4,15 @@ import UserInfo from './UserInfo'
 
 import Logo from '../../../../assets/auth/logo-horizontal-cores.svg'
 
-const headerInfos = [{
-    title: 'Seu email:',
-    description: 'pedrohenriquesv@outlook.com'
-},{
-    title: 'Seu nome:',
-    description: 'Pedro Henrique'
-}]
+const headerInfos = [
+// {
+//     title: 'Seu email:',
+//     description: 'pedrohenriquesv@outlook.com'
+// },{
+//     title: 'Seu nome:',
+//     description: 'Pedro Henrique'
+// }
+]
 
 const headerClass = headerInfos.length === 0 ? "" :  " border"
 

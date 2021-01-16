@@ -1,15 +1,11 @@
 import React, {useContext} from 'react'
 import {MainStyles} from './styles'
-// import Feedback from './Feedback'
+import Feedback from './Feedback'
 // import Button from './Button'
 
 import LoginContext from '../../../../store/context/LoginContext'
-import {updateValue} from '../../../../store/actions'
-
-const mainInfos = [
-    'mínimo de 8 dígitos',
-    'precisa conter letras e números'
-]
+import * as actions from '../../../../store/actions'
+import * as functions from '../../../../functions/login'
 
 const Main = () => {
     const {state, dispatch} = useContext(LoginContext)
@@ -20,13 +16,16 @@ const Main = () => {
             <input type="email" name="email"
                 placeholder="exemplo@dominio.com.br"
                 value={state.email}
-                onChange={(e)=>{ updateValue(dispatch, e.target.value) }}>
+                onChange={(e)=>{ actions.updateValue(dispatch, e.target.value) }}
+                onKeyDown={(e)=>{ functions.handleKeyPress(e, dispatch) }}>
             </input>
-            {/* <div className="messages">
-                {mainInfos.map(info => {
-                    return (<Feedback info={info} />)
-                })}
-            </div> */}
+            <div className="messages">
+                {
+                    state.feedbacks.map(({type, description}) => {
+                        return (<Feedback info={description} key={description}/>)
+                    })
+                }
+            </div>
         </MainStyles>
     )
     // return (
