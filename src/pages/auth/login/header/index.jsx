@@ -1,22 +1,23 @@
-import React from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {HeaderStyles} from './styles'
 import UserInfo from './UserInfo'
 
 import Logo from '../../../../assets/auth/logo-horizontal-cores.svg'
 
-const headerInfos = [
-// {
-//     title: 'Seu email:',
-//     description: 'pedrohenriquesv@outlook.com'
-// },{
-//     title: 'Seu nome:',
-//     description: 'Pedro Henrique'
-// }
-]
+import LoginContext from '../../../../store/context/LoginContext'
+import * as functions from '../../../../functions/login'
 
-const headerClass = headerInfos.length === 0 ? '' :  ' border'
 
 const Header = () => {
+    const {state} = useContext(LoginContext)
+    const [headerInfos, setHeaderInfos] = useState([])
+
+    useEffect(()=>{
+        setHeaderInfos(functions.makeHeaderInfos(state))
+    }, [state])
+
+    const headerClass = headerInfos.length === 0 ? '' :  ' border'
+
     return (
         <HeaderStyles>
             <img src={Logo} alt="Gerencia"></img>

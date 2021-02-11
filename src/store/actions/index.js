@@ -1,3 +1,3 @@
-import {updateValue, validateEmail, handleFeedback} from './login'
+import {validateEmail, handleFeedback, handleEmailRequest} from './login'
 
-export {updateValue, validateEmail, handleFeedback}
+export {validateEmail, handleFeedback, handleEmailRequest}

@@ -4,7 +4,8 @@ export const initialData = {
     email: '',
     password: '',
     name: '',
-    feedbacks: []
+    loading: false,
+    feedbacks: [],
 }
 
 const LoginContext = createContext(initialData)
