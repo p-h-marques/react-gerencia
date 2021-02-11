@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-import colors from "../../../../../themes/colors";
+import colors from '../../../../../themes/colors'
 
 export const UserInfoStyles = styled.div`
     margin-right: 50px;
@@ -24,4 +24,4 @@ export const UserInfoStyles = styled.div`
     @media (max-width: 767px) {
         display: none;
     }
-`;
+`

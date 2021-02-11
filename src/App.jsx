@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+import React from 'react'
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 
 import LoginProvider from './store/providers/LoginProvider'
 
@@ -24,7 +24,7 @@ const App = () => {
                 </Route>
             </Switch>
         </Router>
-    );
-};
+    )
+}
 
-export default App;
+export default App

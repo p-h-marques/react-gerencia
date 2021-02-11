@@ -21,7 +21,7 @@ const Main = () => {
             </input>
             <div className="messages">
                 {
-                    state.feedbacks.map(({type, description}) => {
+                    state.feedbacks.map(({description}) => {
                         return (<Feedback info={description} key={description}/>)
                     })
                 }

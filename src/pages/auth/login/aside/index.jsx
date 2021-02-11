@@ -10,7 +10,7 @@ const Aside = () => {
     const {state, dispatch} = useContext(LoginContext)
 
     return (
-        <AsideStyles onClick={ e => { functions.handleValidateEmail(dispatch, state.email) }}>
+        <AsideStyles onClick={ () => { functions.handleValidateEmail(dispatch, state.email) }}>
             <img src={Arrow} alt="Confirmar"></img>
         </AsideStyles>
     )

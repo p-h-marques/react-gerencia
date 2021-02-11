@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-import colors from "../../../../../themes/colors";
+import colors from '../../../../../themes/colors'
 
 export const FeedbackStyles = styled.div`
     display: flex;
@@ -31,4 +31,4 @@ export const FeedbackStyles = styled.div`
             color: ${colors.error};
         }
     }
-`;
+`

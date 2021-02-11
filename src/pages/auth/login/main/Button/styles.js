@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-import colors from "../../../../../themes/colors";
+import colors from '../../../../../themes/colors'
 
 export const ButtonStyles = styled.button`
     padding: 20px 30px;
@@ -39,4 +39,4 @@ export const ButtonStyles = styled.button`
             margin: 20px 20px 0px 0px;
         }
     }
-`;
+`

@@ -9,4 +9,4 @@ export const initialData = {
 
 const LoginContext = createContext(initialData)
 
-export default LoginContext;
+export default LoginContext
