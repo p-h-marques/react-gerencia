@@ -8,6 +8,31 @@ export function handleKeyPress(ev, dispatch){
     }
 }
 
+//resolver duplicidade
+export function handleNameKeyPress(ev, dispatch){
+    if(ev.key === 'Enter'){
+        let isNameValid = actions.validateName(ev.target.value)
+
+        if(!isNameValid){
+            actions.handleFeedback(dispatch, [{
+                type: 'error',
+                description: 'Seu nome precisa conter, no mínimo, 6 caracteres.'
+            }])
+        } else {
+            dispatch({
+                type: 'updateUser',
+                payload: {name: ev.target.value}
+            })
+        }
+
+        return isNameValid
+    } else {
+        actions.handleFeedback(dispatch, [])
+
+        return false
+    }
+}
+
 export function handleValidateEmail(dispatch, email){
     let out =  actions.validateEmail(dispatch, email)
 

@@ -17,6 +17,10 @@ export function validateEmail(dispatch, email){
     return true
 }
 
+export function validateName(name){
+    return name.length > 5
+}
+
 export async function handleEmailRequest(dispatch, email){
     dispatch({
         type: 'updateLoading',
@@ -33,11 +37,7 @@ export async function handleEmailRequest(dispatch, email){
 
     const request = await fetch('data/users.json', options)
         .then(resp => resp.json())
-        .then(resp => {
-            setTimeout(() => {
-                return resp
-            }, 2000)
-        })
+        .then(resp => { return resp })
         .catch(() => {
             handleFeedback(dispatch, [{
                 type: 'error',
@@ -50,7 +50,7 @@ export async function handleEmailRequest(dispatch, email){
             })
         })
 
-    const result = request.filter(val => { return val.email == email })
+    const result = await request.filter(val => { return val.email == email })
 
     if(result.length == 1){
         updateUserState(dispatch, result[0])

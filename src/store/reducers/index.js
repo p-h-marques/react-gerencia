@@ -1,3 +1,5 @@
+import {initialData} from '../context/LoginContext'
+
 export default function reducer(state, action){
     switch (action.type) {
 
@@ -12,6 +14,9 @@ export default function reducer(state, action){
 
     case 'updateEmail':
         return { ...state, email: action.payload}
+
+    case 'resetUser':
+        return { ...initialData }
 
     default:
         return state

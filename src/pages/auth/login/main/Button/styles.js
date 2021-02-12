@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import colors from '../../../../../themes/colors'
 
 export const ButtonStyles = styled.button`
+    cursor: pointer;
     padding: 20px 30px;
     margin-right: 25px;
     font-size: 24px;
