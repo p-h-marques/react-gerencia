@@ -7,7 +7,7 @@ const initialState = {
     'user': {
         'email': '',
         'name': '',
-        'pass': '',
+        'pass': ''
     },
     'feedbacks': [],
     'loading': false

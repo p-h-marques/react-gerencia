@@ -1,1 +1,2 @@
-export const FETCH_EMAIL_GUEST = 'FETCH_EMAIL_GUEST'
+export const SIMPLE_UPDATE = 'SIMPLE_UPDATE'
+export const WELCOME = 'WELCOME'

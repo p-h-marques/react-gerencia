@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
+import AuthContext from '../../../../state/auth/Context'
 import {HeaderStyles} from './styles'
 import UserInfo from './UserInfo'
 
 import Logo from '../../../../assets/auth/logo-horizontal-cores.svg'
 
 const Header = () => {
-    const headerClass = '' ?? ' border'
+    const { auth } = useContext(AuthContext)
+    const [ hasUserInfo, setHasUserInfo ] = useState(false)
+
+    useEffect(()=>{
+        setHasUserInfo(auth.user.name !== '' || auth.user.email !== '')
+    }, [hasUserInfo, auth])
+
+    const headerClass = hasUserInfo ? ' border' : ''
 
     return (
         <HeaderStyles>
@@ -13,7 +21,12 @@ const Header = () => {
 
             <div className={`infos${headerClass}`}>
                 {
-                    (<UserInfo title='título' description='descrição' key={0}/>)
+                    auth.user.email !== '' &&
+                        <UserInfo title={'Seu email'} description={auth.user.email} key={auth.user.email}/>
+                }
+                {
+                    auth.user.name !== '' &&
+                        <UserInfo title={'Seu nome'} description={auth.user.name} key={auth.user.name}/>
                 }
             </div>
         </HeaderStyles>
