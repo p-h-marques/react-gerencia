@@ -1,22 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React from 'react'
 import {HeaderStyles} from './styles'
 import UserInfo from './UserInfo'
 
 import Logo from '../../../../assets/auth/logo-horizontal-cores.svg'
 
-import LoginContext from '../../../../store/context/LoginContext'
-import * as functions from '../../../../functions/login'
-
-
 const Header = () => {
-    const {state} = useContext(LoginContext)
-    const [headerInfos, setHeaderInfos] = useState([])
-
-    useEffect(()=>{
-        setHeaderInfos(functions.makeHeaderInfos(state))
-    }, [state])
-
-    const headerClass = headerInfos.length === 0 ? '' :  ' border'
+    const headerClass = '' ?? ' border'
 
     return (
         <HeaderStyles>
@@ -24,9 +13,7 @@ const Header = () => {
 
             <div className={`infos${headerClass}`}>
                 {
-                    headerInfos.map(info => {
-                        return (<UserInfo title={info.title} description={info.description} key={info.title}/>)
-                    })
+                    (<UserInfo title='título' description='descrição' key={0}/>)
                 }
             </div>
         </HeaderStyles>
