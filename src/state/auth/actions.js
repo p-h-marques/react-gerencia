@@ -1,5 +1,11 @@
 import * as authTypes from './types'
 
+export function refreshState(){
+    return{
+        type: authTypes.REFRESH
+    }
+}
+
 export function simpleUpdate(newState){
     //update simples do estado
     return{
@@ -39,5 +45,15 @@ export function welcomeGuest(email){
             feedbacks: [],
             loading: false
         }
+    }
+}
+
+export function updateUser(val, key){
+    const obj = {}
+    obj[key] = val
+
+    return{
+        type: authTypes.UPDATE_USER,
+        payload: obj
     }
 }

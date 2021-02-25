@@ -2,7 +2,7 @@ import React, { useReducer } from 'react'
 import AuthContext from './Context'
 import authReducer from './reducers'
 
-const initialState = {
+export const initialState = {
     'actualStep': 0,
     'user': {
         'email': '',

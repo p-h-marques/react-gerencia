@@ -52,3 +52,19 @@ export async function fetchEmailGuest(email, dispatch){
         dispatch(authActions.welcomeGuest(email))
     }
 }
+
+export function handleGuestName(name, dispatch){
+    if(name.length > 4){
+
+        dispatch(authActions.simpleUpdate({
+            actualStep: 4
+        }))
+
+    } else {
+
+        dispatch(authActions.simpleUpdate({
+            feedbacks: ['o seu nome precisa ter, no mínimo, 5 caracteres']
+        }))
+
+    }
+}

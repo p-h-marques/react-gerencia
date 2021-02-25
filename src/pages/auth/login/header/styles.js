@@ -23,6 +23,7 @@ export const HeaderStyles = styled.header`
         padding: 18px 0px 18px 30px;
         display: flex;
         flex-direction: row;
+        min-height: 73px;
     }
 
     @media(max-width: 1199px){
