@@ -18,6 +18,12 @@ function reducer(state, action){
             user: {...state.user, ...action.payload}
         }
 
+    case authTypes.RESET_USER:
+        return {
+            ...initialState,
+            ...action.payload
+        }
+
     default:
         throw new Error()
     }

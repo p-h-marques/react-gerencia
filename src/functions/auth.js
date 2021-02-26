@@ -68,3 +68,89 @@ export function handleGuestName(name, dispatch){
 
     }
 }
+
+export function handleGuestPass(pass, dispatch){
+    let feedbacks = []
+
+    //mínimo de 8 dígitos
+    if(pass.length < 8){
+        feedbacks.push('sua senha precisa conter, no mínimo, 8 caracteres')
+    }
+
+    //precisa conter letras e números
+    if(pass.search(/(?=.*[a-z])(?=.*[0-9])/) < 0){
+        feedbacks.push('sua senha precisa conter letras e números')
+    }
+
+    if(feedbacks.length > 0){
+        dispatch(authActions.simpleUpdate({
+            feedbacks
+        }))
+
+        return false
+    }
+
+    dispatch(authActions.simpleUpdate({
+        actualStep: 5
+    }))
+}
+
+export async function handleLogin(user, dispatch){
+    console.log(user)
+
+    dispatch(authActions.simpleUpdate({
+        loading: true
+    }))
+
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    }
+
+    let errorRequest = false
+
+    const request = await fetch('data/users.json', options)
+        .then(resp => resp.json())
+        .then(resp => { return resp })
+        .catch(() => { errorRequest = true })
+
+    if(errorRequest){
+        dispatch(authActions.simpleUpdate({
+            feedbacks: ['ocorreu algum erro ao buscar seu email :('],
+            loading: false
+        }))
+
+        return false
+    }
+
+    const result = await request.filter(val => { return val.email == user.email })
+
+    if(result.length !== 1){
+        dispatch(authActions.resetUser(['o seu email não foi encontrado']))
+
+        return false
+    }
+
+    const validatePassword = result[0].password === user.pass
+
+    if(validatePassword){
+
+        dispatch(authActions.simpleUpdate({
+            actualStep: 5,
+            loading: false
+        }))
+
+        return true
+
+    } else {
+        dispatch(authActions.simpleUpdate({
+            feedbacks: ['senha inválida, tente novamente'],
+            loading: false
+        }))
+
+        return false
+    }
+}

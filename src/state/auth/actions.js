@@ -23,7 +23,7 @@ export function welcomeUser(user){
             user: {
                 email: user.email,
                 name: user.name,
-                pass: btoa(user.password)
+                pass: ''
             },
             feedbacks: [],
             loading: false
@@ -55,5 +55,14 @@ export function updateUser(val, key){
     return{
         type: authTypes.UPDATE_USER,
         payload: obj
+    }
+}
+
+export function resetUser(feedbacks){
+    return{
+        type: authTypes.RESET_USER,
+        payload: {
+            feedbacks
+        }
     }
 }

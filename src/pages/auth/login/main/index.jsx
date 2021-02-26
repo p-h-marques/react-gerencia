@@ -17,9 +17,11 @@ const Main = () => {
 
     //limpando erros quando inputs mudam
     useEffect(()=>{
-        dispatchToAuth(authActions.simpleUpdate({
-            feedbacks: []
-        }))
+        if(auth.user.email != ''){
+            dispatchToAuth(authActions.simpleUpdate({
+                feedbacks: []
+            }))
+        }
     },[auth.user])
 
     //lidando com alterações no formulário do usuário
@@ -88,6 +90,28 @@ const Main = () => {
                 )
             }
             {
+                auth.actualStep === 1 && (
+                    <>
+                        <h1>Digite sua senha:</h1>
+                        <input type="password" name="newpass" id="newpass" autoComplete="off"
+                            placeholder="digite aqui sua senha, por favor!" value={auth.user.pass}
+                            onChange={ e => { handleUserChange(e, 'pass') } }
+                            onKeyPress={ e => {
+                                handleEnterKeyPress(e, authFunctions.handleLogin, auth.user)
+                            } }
+                        >
+                        </input>
+                        <div className="messages">
+                            {
+                                auth.feedbacks.map(feedback => {
+                                    return (<Feedback info={feedback} key={feedback}/>)
+                                })
+                            }
+                        </div>
+                    </>
+                )
+            }
+            {
                 auth.actualStep === 2 && (
                     <>
                         <h1>
@@ -122,6 +146,31 @@ const Main = () => {
                         </div>
                     </>
                 )
+            }
+            {
+                auth.actualStep === 4 && (
+                    <>
+                        <h1>Vamos escolher sua futura senha?</h1>
+                        <input type="password" name="pass" id="pass" autoComplete="off"
+                            placeholder="digite aqui sua senha, por favor!" value={auth.user.pass}
+                            onChange={ e => { handleUserChange(e, 'pass') } }
+                            onKeyPress={ e => {
+                                handleEnterKeyPress(e, authFunctions.handleGuestPass, auth.user.pass)
+                            } }
+                        >
+                        </input>
+                        <div className="messages">
+                            {
+                                auth.feedbacks.map(feedback => {
+                                    return (<Feedback info={feedback} key={feedback}/>)
+                                })
+                            }
+                        </div>
+                    </>
+                )
+            }
+            {
+                auth.actualStep === 5 && <h1>Bem-vindo, {auth.user.name}!</h1>
             }
         </MainStyles>
     )
