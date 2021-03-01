@@ -1,25 +1,11 @@
 import {validateBr} from 'js-brasil'
 import * as authActions from '../state/auth/actions'
 
-export function handleGuestEmail(email, dispatch){
-    if(validateBr.email(email)){
+async function fetchUser(email, dispatchAuth){
+    dispatchAuth(authActions.simpleUpdate({
+        loading: true
+    }))
 
-        dispatch(authActions.simpleUpdate({
-            loading: true
-        }))
-
-        fetchEmailGuest(email, dispatch)
-
-    } else {
-
-        dispatch(authActions.simpleUpdate({
-            feedbacks: ['o seu email parece inválido, que tal tentar novamente?']
-        }))
-
-    }
-}
-
-export async function fetchEmailGuest(email, dispatch){
     const options = {
         method: 'GET',
         headers: {
@@ -36,7 +22,7 @@ export async function fetchEmailGuest(email, dispatch){
         .catch(() => { errorRequest = true })
 
     if(errorRequest){
-        dispatch(authActions.simpleUpdate({
+        dispatchAuth(authActions.simpleUpdate({
             feedbacks: ['ocorreu algum erro ao buscar seu email :('],
             loading: false
         }))
@@ -46,11 +32,29 @@ export async function fetchEmailGuest(email, dispatch){
 
     const result = await request.filter(val => { return val.email == email })
 
-    if(result.length == 1){
-        dispatch(authActions.welcomeUser(result[0]))
+    return result
+}
+
+export function handleGuestEmail(email, dispatch){
+    if(validateBr.email(email)){
+
+        fetchEmailGuest(email, dispatch)
+
     } else {
-        dispatch(authActions.welcomeGuest(email))
+
+        dispatch(authActions.simpleUpdate({
+            feedbacks: ['o seu email parece inválido, que tal tentar novamente?']
+        }))
+
     }
+}
+
+export async function fetchEmailGuest(email, dispatch){
+    const result = await fetchUser(email, dispatch)
+
+    result.length == 1
+        ? dispatch(authActions.welcomeUser(result[0]))
+        : dispatch(authActions.welcomeGuest(email))
 }
 
 export function handleGuestName(name, dispatch){
@@ -96,37 +100,8 @@ export function handleGuestPass(pass, dispatch){
 }
 
 export async function handleLogin(user, dispatch){
-    console.log(user)
 
-    dispatch(authActions.simpleUpdate({
-        loading: true
-    }))
-
-    const options = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
-    }
-
-    let errorRequest = false
-
-    const request = await fetch('data/users.json', options)
-        .then(resp => resp.json())
-        .then(resp => { return resp })
-        .catch(() => { errorRequest = true })
-
-    if(errorRequest){
-        dispatch(authActions.simpleUpdate({
-            feedbacks: ['ocorreu algum erro ao buscar seu email :('],
-            loading: false
-        }))
-
-        return false
-    }
-
-    const result = await request.filter(val => { return val.email == user.email })
+    const result = await fetchUser(user.email, dispatch)
 
     if(result.length !== 1){
         dispatch(authActions.resetUser(['o seu email não foi encontrado']))
@@ -152,5 +127,32 @@ export async function handleLogin(user, dispatch){
         }))
 
         return false
+    }
+}
+
+export async function handleEmailRecover(email, dispatch){
+    if(validateBr.email(email)){
+
+        const result = await fetchUser(email, dispatch)
+
+        if(result.length !== 1){
+            dispatch(authActions.simpleUpdate({
+                feedbacks: ['o seu email não foi encontrado'],
+                loading: false
+            }))
+
+            return false
+        }
+
+        dispatch(authActions.simpleUpdate({
+            actualStep: 7
+        }))
+
+    } else {
+
+        dispatch(authActions.simpleUpdate({
+            feedbacks: ['o seu email parece inválido, que tal tentar novamente?']
+        }))
+
     }
 }

@@ -1,11 +1,18 @@
 import styled from 'styled-components'
+import colors from '../../../../themes/colors'
 
 export const FooterStyles = styled.footer`
     grid-area: footer;
     padding: 40px 0px 40px 50px;
 
-    a:hover, a:active, a:focus{
+    a, span{
+        color: ${colors.dark}
+    }
+
+    a:hover, a:active, a:focus,
+    span:hover, span:active, span:focus{
         text-decoration: underline;
+        cursor: pointer;
     }
 
     @media(max-width: 1199px){

@@ -32,16 +32,6 @@ const Main = () => {
         [auth.user],
     )
 
-    //lidando com ENTER do formulário
-    const handleEmailKeyPress = useCallback(
-        e => {
-            if(e.key === 'Enter'){
-                authFunctions.handleGuestEmail(auth.user.email, dispatchToAuth)
-            }
-        },
-        [auth.user],
-    )
-
     const handleEnterKeyPress = useCallback(
         (e, f, info) => {
             if(e.key === 'Enter'){
@@ -77,7 +67,10 @@ const Main = () => {
                         <input type="email" name="email" id="email"
                             placeholder="exemplo@dominio.com.br" value={auth.user.email}
                             onChange={  e => { handleUserChange(e, 'email') }  }
-                            onKeyPress={ handleEmailKeyPress }>
+                            onKeyPress={ e => {
+                                handleEnterKeyPress(e, authFunctions.handleGuestEmail, auth.user.email)
+                            } }
+                        >
                         </input>
                         <div className="messages">
                             {
@@ -171,6 +164,31 @@ const Main = () => {
             }
             {
                 auth.actualStep === 5 && <h1>Bem-vindo, {auth.user.name}!</h1>
+            }
+            {
+                auth.actualStep === 6 && (
+                    <>
+                        <h1>Para recuperar sua conta,<br />precisamos saber seu email:</h1>
+                        <input type="email" name="recoveremail" id="recoveremail"
+                            placeholder="exemplo@dominio.com.br" value={auth.user.email}
+                            onChange={  e => { handleUserChange(e, 'email') }  }
+                            onKeyPress={ e => {
+                                handleEnterKeyPress(e, authFunctions.handleEmailRecover, auth.user.email)
+                            } }
+                        >
+                        </input>
+                        <div className="messages">
+                            {
+                                auth.feedbacks.map(feedback => {
+                                    return (<Feedback info={feedback} key={feedback}/>)
+                                })
+                            }
+                        </div>
+                    </>
+                )
+            }
+            {
+                auth.actualStep === 7 && <h1>Enviou o email de recuperação, zé!</h1>
             }
         </MainStyles>
     )

@@ -15,6 +15,11 @@ export const AsideStyles = styled.aside`
         background: ${colors.green_hover};
     }
 
+    &.disabled{
+        background: ${colors.gray_c};
+        cursor: unset;
+    }
+
     @media(max-width: 991px){
         img{
             height: 36px;
