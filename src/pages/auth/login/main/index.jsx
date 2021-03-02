@@ -11,9 +11,11 @@ const Main = () => {
     const { auth, dispatchToAuth } = useContext(AuthContext)
 
     //debug do estado
+    /*
     useEffect(()=>{
         console.log(auth)
     },[auth.actualStep])
+    */
 
     //limpando erros quando inputs mudam
     useEffect(()=>{
@@ -32,6 +34,7 @@ const Main = () => {
         [auth.user],
     )
 
+    //função genérica para executar algo quando o enter for pressionado nos inputs
     const handleEnterKeyPress = useCallback(
         (e, f, info) => {
             if(e.key === 'Enter'){
@@ -188,7 +191,39 @@ const Main = () => {
                 )
             }
             {
-                auth.actualStep === 7 && <h1>Enviou o email de recuperação, zé!</h1>
+                auth.actualStep === 7 && (
+                    <>
+                        <h1>
+                            {auth.user.name}, o código de recuperação foi<br />enviado pro email <strong>{auth.user.email}</strong>!
+                        </h1>
+                        <div className="buttons">
+                            <Button highlight={true} label="inserir código" onClick={()=>{ handleStepChange(8) }}/>
+                            <Button highlight={false} label="tentar logar de novo..." onClick={()=>{ handleStepChange(1) }}/>
+                        </div>
+                    </>
+                )
+            }
+            {
+                auth.actualStep === 8 && (
+                    <>
+                        <h1>Digite aqui o código de recuperação<br />enviado pro seu email:</h1>
+                        <input type="email" name="recovercode" id="recovercode"
+                            placeholder="000000" value={auth.user.recoverCode}
+                            onChange={  e => { handleUserChange(e, 'recoverCode') }  }
+                            onKeyPress={ e => {
+                                handleEnterKeyPress(e, authFunctions.handleRecoverCode, auth.user.recoverCode)
+                            } }
+                        >
+                        </input>
+                        <div className="messages">
+                            {
+                                auth.feedbacks.map(feedback => {
+                                    return (<Feedback info={feedback} key={feedback}/>)
+                                })
+                            }
+                        </div>
+                    </>
+                )
             }
         </MainStyles>
     )

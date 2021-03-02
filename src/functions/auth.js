@@ -1,6 +1,8 @@
 import {validateBr} from 'js-brasil'
 import * as authActions from '../state/auth/actions'
 
+const STORAGE_RECOVER = 'recover'
+
 async function fetchUser(email, dispatchAuth){
     dispatchAuth(authActions.simpleUpdate({
         loading: true
@@ -33,6 +35,23 @@ async function fetchUser(email, dispatchAuth){
     const result = await request.filter(val => { return val.email == email })
 
     return result
+}
+
+function makeRecoverCode(){
+    function getRandomNumber(){
+        return Math.floor(Math.random() * 10).toString()
+    }
+
+    let code = ''
+
+    for (let index = 0; index < 6; index++) {
+        code += getRandomNumber()
+    }
+
+    localStorage.removeItem(STORAGE_RECOVER)
+    localStorage.setItem(STORAGE_RECOVER, code)
+
+    return code
 }
 
 export function handleGuestEmail(email, dispatch){
@@ -144,8 +163,16 @@ export async function handleEmailRecover(email, dispatch){
             return false
         }
 
+        makeRecoverCode()
+
         dispatch(authActions.simpleUpdate({
-            actualStep: 7
+            actualStep: 7,
+            user: {
+                email,
+                name: result[0].name,
+                pass: '',
+                recoverCode: ''
+            }
         }))
 
     } else {
@@ -155,4 +182,31 @@ export async function handleEmailRecover(email, dispatch){
         }))
 
     }
+}
+
+export function handleRecoverCode(code, dispatch){
+    if(code.length !== 6){
+        dispatch(authActions.simpleUpdate({
+            feedbacks: ['o seu código de recuperação deve conter 6 caracteres'],
+            loading: false
+        }))
+
+        return false
+    }
+
+    const storageCode = localStorage.getItem(STORAGE_RECOVER)
+
+    if(storageCode !== code){
+        dispatch(authActions.simpleUpdate({
+            feedbacks: ['o seu código de recuperação está incorreto'],
+            loading: false
+        }))
+
+        return false
+    }
+
+    dispatch(authActions.simpleUpdate({
+        actualStep: 5,
+        loading: false
+    }))
 }

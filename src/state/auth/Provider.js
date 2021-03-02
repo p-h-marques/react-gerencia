@@ -7,7 +7,8 @@ export const initialState = {
     'user': {
         'email': '',
         'name': '',
-        'pass': ''
+        'pass': '',
+        'recoverCode': ''
     },
     'feedbacks': [],
     'loading': false

@@ -23,7 +23,8 @@ export function welcomeUser(user){
             user: {
                 email: user.email,
                 name: user.name,
-                pass: ''
+                pass: '',
+                recoverCode: ''
             },
             feedbacks: [],
             loading: false
@@ -40,7 +41,8 @@ export function welcomeGuest(email){
             user: {
                 email,
                 name: '',
-                pass: ''
+                pass: '',
+                recoverCode: ''
             },
             feedbacks: [],
             loading: false

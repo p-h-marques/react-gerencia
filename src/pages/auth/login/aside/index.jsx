@@ -2,6 +2,7 @@ import React, { useContext, useCallback, useState, useEffect } from 'react'
 import {AsideStyles} from './styles'
 import AuthContext from '../../../../state/auth/Context'
 import * as authFunctions from '../../../../functions/auth'
+import * as authActions from '../../../../state/auth/actions'
 
 import Arrow from '../../../../assets/auth/arrow.svg'
 import Loading from '../../../../assets/auth/loading.svg'
@@ -41,6 +42,20 @@ const Aside = () => {
 
             case 4:
                 authFunctions.handleGuestPass(auth.user.pass, dispatchToAuth)
+                break
+
+            case 6:
+                authFunctions.handleEmailRecover(auth.user.email, dispatchToAuth)
+                break
+
+            case 7:
+                dispatchToAuth(authActions.simpleUpdate({
+                    actualStep: 8
+                }))
+                break
+
+            case 8:
+                authFunctions.handleRecoverCode(auth.user.recoverCode, dispatchToAuth)
                 break
 
             default:
