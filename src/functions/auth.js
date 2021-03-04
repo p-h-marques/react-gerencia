@@ -54,6 +54,22 @@ function makeRecoverCode(){
     return code
 }
 
+function validatePass(pass){
+    let feedbacks = []
+
+    //mínimo de 8 dígitos
+    if(pass.length < 8){
+        feedbacks.push('sua senha precisa conter, no mínimo, 8 caracteres')
+    }
+
+    //precisa conter letras e números
+    if(pass.search(/(?=.*[a-z])(?=.*[0-9])/) < 0){
+        feedbacks.push('sua senha precisa conter letras e números')
+    }
+
+    return feedbacks
+}
+
 export function handleGuestEmail(email, dispatch){
     if(validateBr.email(email)){
 
@@ -80,7 +96,8 @@ export function handleGuestName(name, dispatch){
     if(name.length > 4){
 
         dispatch(authActions.simpleUpdate({
-            actualStep: 4
+            actualStep: 4,
+            nextStep: false
         }))
 
     } else {
@@ -93,17 +110,7 @@ export function handleGuestName(name, dispatch){
 }
 
 export function handleGuestPass(pass, dispatch){
-    let feedbacks = []
-
-    //mínimo de 8 dígitos
-    if(pass.length < 8){
-        feedbacks.push('sua senha precisa conter, no mínimo, 8 caracteres')
-    }
-
-    //precisa conter letras e números
-    if(pass.search(/(?=.*[a-z])(?=.*[0-9])/) < 0){
-        feedbacks.push('sua senha precisa conter letras e números')
-    }
+    let feedbacks = validatePass(pass)
 
     if(feedbacks.length > 0){
         dispatch(authActions.simpleUpdate({
@@ -172,7 +179,8 @@ export async function handleEmailRecover(email, dispatch){
                 name: result[0].name,
                 pass: '',
                 recoverCode: ''
-            }
+            },
+            loading: false
         }))
 
     } else {
@@ -209,4 +217,38 @@ export function handleRecoverCode(code, dispatch){
         actualStep: 5,
         loading: false
     }))
+}
+
+export function handleLiveAsideActivation(user, step, dispatch){
+    console.log(user, step)
+    switch (step) {
+    case 0:
+    case 6:
+        dispatch(authActions.simpleUpdate({
+            nextStep: validateBr.email(user.email)
+        }))
+        break
+
+    case 1:
+    case 4:
+        dispatch(authActions.simpleUpdate({
+            nextStep: validatePass(user.pass).length === 0
+        }))
+        break
+
+    case 3:
+        dispatch(authActions.simpleUpdate({
+            nextStep: user.name.length > 4
+        }))
+        break
+
+    case 8:
+        dispatch(authActions.simpleUpdate({
+            nextStep: user.recoverCode.length === 6
+        }))
+        break
+
+    default:
+        break
+    }
 }

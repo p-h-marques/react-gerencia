@@ -6,16 +6,17 @@ import * as authActions from '../../../../state/auth/actions'
 
 import Arrow from '../../../../assets/auth/arrow.svg'
 import Loading from '../../../../assets/auth/loading.svg'
-import Waiting from '../../../../assets/auth/waiting.svg'
+// import Waiting from '../../../../assets/auth/waiting.svg'
 
 const Aside = () => {
     const { auth, dispatchToAuth } = useContext(AuthContext)
     const [ status, setStatus ]    = useState(Arrow)
-    const [ active, setActive ]    = useState(true)
+    // const [ active, setActive ]    = useState(true)
 
     useEffect(() => {
         auth.loading ? setStatus(Loading) : setStatus(Arrow)
 
+        /*
         if(auth.actualStep == 2 || auth.feedbacks.length > 0){
             setStatus(Waiting)
             setActive(false)
@@ -23,6 +24,7 @@ const Aside = () => {
             setStatus(Arrow)
             setActive(true)
         }
+        */
     }, [auth])
 
     const handleNextStep = useCallback(
@@ -50,7 +52,8 @@ const Aside = () => {
 
             case 7:
                 dispatchToAuth(authActions.simpleUpdate({
-                    actualStep: 8
+                    actualStep: 8,
+                    nextStep: false
                 }))
                 break
 
@@ -67,7 +70,7 @@ const Aside = () => {
     )
 
     return (
-        <AsideStyles onClick={handleNextStep} className={!active ? 'disabled' : ''}>
+        <AsideStyles onClick={handleNextStep} className={!auth.nextStep ? 'disabled' : ''}>
             <img src={status}
                 alt="Confirmar"></img>
         </AsideStyles>

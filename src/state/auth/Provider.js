@@ -11,7 +11,8 @@ export const initialState = {
         'recoverCode': ''
     },
     'feedbacks': [],
-    'loading': false
+    'loading': false,
+    'nextStep': false
 }
 
 function Provider({ children }) {

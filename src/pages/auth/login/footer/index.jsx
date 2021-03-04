@@ -12,10 +12,30 @@ const Footer = () => {
                 dispatchToAuth(authActions.simpleUpdate({
                     actualStep: 6,
                     user: {
-                        email: '',
+                        email: auth.user.email,
                         name: '',
-                        pass: ''
-                    }
+                        pass: '',
+                        recoverCode: ''
+                    },
+                    feedbacks: []
+                }))
+            }
+        },
+        [auth],
+    )
+
+    const handleBackToLogin = useCallback(
+        () => {
+            if(auth.actualStep === 6){
+                dispatchToAuth(authActions.simpleUpdate({
+                    actualStep: 0,
+                    user: {
+                        email: auth.user.email,
+                        name: '',
+                        pass: '',
+                        recoverCode: ''
+                    },
+                    feedbacks: []
                 }))
             }
         },
@@ -23,7 +43,11 @@ const Footer = () => {
     )
     return (
         <FooterStyles>
-            <span onClick={handleForgotPass}>Esqueceu sua senha?</span>
+            {
+                auth.actualStep !== 6
+                    ? (<span onClick={handleForgotPass}>Esqueceu sua senha?</span>)
+                    : (<span onClick={handleBackToLogin}>Voltar ao login normal</span>)
+            }
         </FooterStyles>
     )
 }

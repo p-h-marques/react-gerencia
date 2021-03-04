@@ -11,11 +11,13 @@ const Main = () => {
     const { auth, dispatchToAuth } = useContext(AuthContext)
 
     //debug do estado
-    /*
+
     useEffect(()=>{
-        console.log(auth)
-    },[auth.actualStep])
-    */
+        authFunctions.handleLiveAsideActivation(
+            auth.user, auth.actualStep, dispatchToAuth
+        )
+    },[auth.user])
+
 
     //limpando erros quando inputs mudam
     useEffect(()=>{
@@ -55,7 +57,8 @@ const Main = () => {
     const handleStepChange = useCallback(
         step => {
             dispatchToAuth(authActions.simpleUpdate({
-                actualStep: step
+                actualStep: step,
+                nextStep: false
             }))
         },
         [auth.actualStep],
@@ -69,10 +72,18 @@ const Main = () => {
                         <h1>Olá! Digite seu melhor email:</h1>
                         <input type="email" name="email" id="email"
                             placeholder="exemplo@dominio.com.br" value={auth.user.email}
-                            onChange={  e => { handleUserChange(e, 'email') }  }
+                            onChange={  e => {
+                                handleUserChange(e, 'email')
+
+                                // authFunctions.handleLiveAsideActivation(
+                                //     auth.user.email, 'email', dispatchToAuth
+                                // )
+                            }}
                             onKeyPress={ e => {
-                                handleEnterKeyPress(e, authFunctions.handleGuestEmail, auth.user.email)
-                            } }
+                                handleEnterKeyPress(
+                                    e, authFunctions.handleGuestEmail, auth.user.email
+                                )
+                            }}
                         >
                         </input>
                         <div className="messages">
@@ -91,10 +102,18 @@ const Main = () => {
                         <h1>Digite sua senha:</h1>
                         <input type="password" name="newpass" id="newpass" autoComplete="off"
                             placeholder="digite aqui sua senha, por favor!" value={auth.user.pass}
-                            onChange={ e => { handleUserChange(e, 'pass') } }
-                            onKeyPress={ e => {
-                                handleEnterKeyPress(e, authFunctions.handleLogin, auth.user)
+                            onChange={ e => {
+                                handleUserChange(e, 'pass')
+
+                                // authFunctions.handleLiveAsideActivation(
+                                //     auth.user.pass, 'pass', dispatchToAuth
+                                // )
                             } }
+                            onKeyPress={ e => {
+                                handleEnterKeyPress(
+                                    e, authFunctions.handleLogin, auth.user
+                                )
+                            }}
                         >
                         </input>
                         <div className="messages">

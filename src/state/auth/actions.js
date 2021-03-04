@@ -27,7 +27,8 @@ export function welcomeUser(user){
                 recoverCode: ''
             },
             feedbacks: [],
-            loading: false
+            loading: false,
+            nextStep: false
         }
     }
 }
@@ -45,7 +46,8 @@ export function welcomeGuest(email){
                 recoverCode: ''
             },
             feedbacks: [],
-            loading: false
+            loading: false,
+            nextStep: false
         }
     }
 }
