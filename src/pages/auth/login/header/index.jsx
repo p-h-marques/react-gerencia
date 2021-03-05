@@ -22,11 +22,11 @@ const Header = () => {
             <div className={`infos${headerClass}`}>
                 {
                     auth.user.email !== '' &&
-                        <UserInfo title={'Seu email'} description={auth.user.email} key={auth.user.email}/>
+                        <UserInfo title={'Seu email'} description={auth.user.email} />
                 }
                 {
                     auth.user.name !== '' &&
-                        <UserInfo title={'Seu nome'} description={auth.user.name} key={auth.user.name}/>
+                        <UserInfo title={'Seu nome'} description={auth.user.name} />
                 }
             </div>
         </HeaderStyles>

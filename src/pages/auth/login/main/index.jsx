@@ -10,31 +10,19 @@ import Button from './Button'
 const Main = () => {
     const { auth, dispatchToAuth } = useContext(AuthContext)
 
-    //debug do estado
-
     useEffect(()=>{
+        //botão lateral acompanhando validações
         authFunctions.handleLiveAsideActivation(
             auth.user, auth.actualStep, dispatchToAuth
         )
-    },[auth.user])
 
-
-    //limpando erros quando inputs mudam
-    useEffect(()=>{
+        //limpando feedbacks quando input for editado
         if(auth.user.email != ''){
             dispatchToAuth(authActions.simpleUpdate({
                 feedbacks: []
             }))
         }
     },[auth.user])
-
-    //lidando com alterações no formulário do usuário
-    const handleUserChange = useCallback(
-        (e, param) => {
-            dispatchToAuth(authActions.updateUser(e.target.value, param))
-        },
-        [auth.user],
-    )
 
     //função genérica para executar algo quando o enter for pressionado nos inputs
     const handleEnterKeyPress = useCallback(
@@ -43,14 +31,6 @@ const Main = () => {
                 f(info, dispatchToAuth)
             }
         }
-    )
-
-    //retornando ao step inicial
-    const handleInitialStep = useCallback(
-        () => {
-            dispatchToAuth(authActions.refreshState())
-        },
-        [auth],
     )
 
     //migrando de steps
@@ -73,11 +53,7 @@ const Main = () => {
                         <input type="email" name="email" id="email"
                             placeholder="exemplo@dominio.com.br" value={auth.user.email}
                             onChange={  e => {
-                                handleUserChange(e, 'email')
-
-                                // authFunctions.handleLiveAsideActivation(
-                                //     auth.user.email, 'email', dispatchToAuth
-                                // )
+                                dispatchToAuth(authActions.updateUser(e.target.value, 'email'))
                             }}
                             onKeyPress={ e => {
                                 handleEnterKeyPress(
@@ -86,13 +62,6 @@ const Main = () => {
                             }}
                         >
                         </input>
-                        <div className="messages">
-                            {
-                                auth.feedbacks.map(feedback => {
-                                    return (<Feedback info={feedback} key={feedback}/>)
-                                })
-                            }
-                        </div>
                     </>
                 )
             }
@@ -103,11 +72,7 @@ const Main = () => {
                         <input type="password" name="newpass" id="newpass" autoComplete="off"
                             placeholder="digite aqui sua senha, por favor!" value={auth.user.pass}
                             onChange={ e => {
-                                handleUserChange(e, 'pass')
-
-                                // authFunctions.handleLiveAsideActivation(
-                                //     auth.user.pass, 'pass', dispatchToAuth
-                                // )
+                                dispatchToAuth(authActions.updateUser(e.target.value, 'pass'))
                             } }
                             onKeyPress={ e => {
                                 handleEnterKeyPress(
@@ -116,13 +81,6 @@ const Main = () => {
                             }}
                         >
                         </input>
-                        <div className="messages">
-                            {
-                                auth.feedbacks.map(feedback => {
-                                    return (<Feedback info={feedback} key={feedback}/>)
-                                })
-                            }
-                        </div>
                     </>
                 )
             }
@@ -135,7 +93,9 @@ const Main = () => {
                         </h1>
                         <div className="buttons">
                             <Button highlight={true} label="sim, vamos lá!" onClick={()=>{ handleStepChange(3) }}/>
-                            <Button highlight={false} label="quero tentar outro email.." onClick={handleInitialStep}/>
+                            <Button highlight={false} label="quero tentar outro email.." onClick={()=>{
+                                dispatchToAuth(authActions.refreshState())
+                            }}/>
                         </div>
                     </>
                 )
@@ -146,19 +106,14 @@ const Main = () => {
                         <h1>Vamos nos conhecer melhor?</h1>
                         <input type="text" name="name" id="name"
                             placeholder="digite aqui seu nome, por favor!" value={auth.user.name}
-                            onChange={ e => { handleUserChange(e, 'name') } }
+                            onChange={ e => {
+                                dispatchToAuth(authActions.updateUser(e.target.value, 'name'))
+                            } }
                             onKeyPress={ e => {
                                 handleEnterKeyPress(e, authFunctions.handleGuestName, auth.user.name)
                             } }
                         >
                         </input>
-                        <div className="messages">
-                            {
-                                auth.feedbacks.map(feedback => {
-                                    return (<Feedback info={feedback} key={feedback}/>)
-                                })
-                            }
-                        </div>
                     </>
                 )
             }
@@ -168,19 +123,14 @@ const Main = () => {
                         <h1>Vamos escolher sua futura senha?</h1>
                         <input type="password" name="pass" id="pass" autoComplete="off"
                             placeholder="digite aqui sua senha, por favor!" value={auth.user.pass}
-                            onChange={ e => { handleUserChange(e, 'pass') } }
+                            onChange={ e => {
+                                dispatchToAuth(authActions.updateUser(e.target.value, 'pass'))
+                            } }
                             onKeyPress={ e => {
                                 handleEnterKeyPress(e, authFunctions.handleGuestPass, auth.user.pass)
                             } }
                         >
                         </input>
-                        <div className="messages">
-                            {
-                                auth.feedbacks.map(feedback => {
-                                    return (<Feedback info={feedback} key={feedback}/>)
-                                })
-                            }
-                        </div>
                     </>
                 )
             }
@@ -193,19 +143,14 @@ const Main = () => {
                         <h1>Para recuperar sua conta,<br />precisamos saber seu email:</h1>
                         <input type="email" name="recoveremail" id="recoveremail"
                             placeholder="exemplo@dominio.com.br" value={auth.user.email}
-                            onChange={  e => { handleUserChange(e, 'email') }  }
+                            onChange={  e => {
+                                dispatchToAuth(authActions.updateUser(e.target.value, 'email'))
+                            }  }
                             onKeyPress={ e => {
                                 handleEnterKeyPress(e, authFunctions.handleEmailRecover, auth.user.email)
                             } }
                         >
                         </input>
-                        <div className="messages">
-                            {
-                                auth.feedbacks.map(feedback => {
-                                    return (<Feedback info={feedback} key={feedback}/>)
-                                })
-                            }
-                        </div>
                     </>
                 )
             }
@@ -228,20 +173,26 @@ const Main = () => {
                         <h1>Digite aqui o código de recuperação<br />enviado pro seu email:</h1>
                         <input type="email" name="recovercode" id="recovercode"
                             placeholder="000000" value={auth.user.recoverCode}
-                            onChange={  e => { handleUserChange(e, 'recoverCode') }  }
+                            onChange={  e => {
+                                dispatchToAuth(authActions.updateUser(e.target.value, 'recoverCode'))
+                            } }
                             onKeyPress={ e => {
                                 handleEnterKeyPress(e, authFunctions.handleRecoverCode, auth.user.recoverCode)
                             } }
                         >
                         </input>
-                        <div className="messages">
-                            {
-                                auth.feedbacks.map(feedback => {
-                                    return (<Feedback info={feedback} key={feedback}/>)
-                                })
-                            }
-                        </div>
                     </>
+                )
+            }
+            {
+                ![2,5,7].includes(auth.actualStep) && (
+                    <div className="messages">
+                        {
+                            auth.feedbacks.map(feedback => {
+                                return (<Feedback info={feedback} key={feedback}/>)
+                            })
+                        }
+                    </div>
                 )
             }
         </MainStyles>

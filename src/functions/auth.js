@@ -3,6 +3,7 @@ import * as authActions from '../state/auth/actions'
 
 const STORAGE_RECOVER = 'recover'
 
+//buscando usuário na API
 async function fetchUser(email, dispatchAuth){
     dispatchAuth(authActions.simpleUpdate({
         loading: true
@@ -37,6 +38,7 @@ async function fetchUser(email, dispatchAuth){
     return result
 }
 
+//fazendo código de recuperação e salvando no local storage
 function makeRecoverCode(){
     function getRandomNumber(){
         return Math.floor(Math.random() * 10).toString()
@@ -54,6 +56,7 @@ function makeRecoverCode(){
     return code
 }
 
+//validando senha
 function validatePass(pass){
     let feedbacks = []
 
@@ -70,6 +73,7 @@ function validatePass(pass){
     return feedbacks
 }
 
+//validando email e consultando API
 export function handleGuestEmail(email, dispatch){
     if(validateBr.email(email)){
 
@@ -84,6 +88,7 @@ export function handleGuestEmail(email, dispatch){
     }
 }
 
+//verificando se email digitado é de um usuário ou visitante
 export async function fetchEmailGuest(email, dispatch){
     const result = await fetchUser(email, dispatch)
 
@@ -92,6 +97,7 @@ export async function fetchEmailGuest(email, dispatch){
         : dispatch(authActions.welcomeGuest(email))
 }
 
+//validando nome de usuário
 export function handleGuestName(name, dispatch){
     if(name.length > 4){
 
@@ -109,6 +115,7 @@ export function handleGuestName(name, dispatch){
     }
 }
 
+//validando senha
 export function handleGuestPass(pass, dispatch){
     let feedbacks = validatePass(pass)
 
@@ -125,6 +132,7 @@ export function handleGuestPass(pass, dispatch){
     }))
 }
 
+//efetuando login
 export async function handleLogin(user, dispatch){
 
     const result = await fetchUser(user.email, dispatch)
@@ -156,6 +164,7 @@ export async function handleLogin(user, dispatch){
     }
 }
 
+//buscando email de usuário e gerando código de recuperação
 export async function handleEmailRecover(email, dispatch){
     if(validateBr.email(email)){
 
@@ -192,6 +201,7 @@ export async function handleEmailRecover(email, dispatch){
     }
 }
 
+//validando código de recuperação
 export function handleRecoverCode(code, dispatch){
     if(code.length !== 6){
         dispatch(authActions.simpleUpdate({
@@ -219,8 +229,8 @@ export function handleRecoverCode(code, dispatch){
     }))
 }
 
+//atualizando aside em tempo de digitação
 export function handleLiveAsideActivation(user, step, dispatch){
-    console.log(user, step)
     switch (step) {
     case 0:
     case 6:

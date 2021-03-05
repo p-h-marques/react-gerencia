@@ -6,25 +6,19 @@ import * as authActions from '../../../../state/auth/actions'
 
 import Arrow from '../../../../assets/auth/arrow.svg'
 import Loading from '../../../../assets/auth/loading.svg'
-// import Waiting from '../../../../assets/auth/waiting.svg'
+import Waiting from '../../../../assets/auth/waiting.svg'
 
 const Aside = () => {
     const { auth, dispatchToAuth } = useContext(AuthContext)
     const [ status, setStatus ]    = useState(Arrow)
-    // const [ active, setActive ]    = useState(true)
 
     useEffect(() => {
+        //exibindo ícone de carregamento
         auth.loading ? setStatus(Loading) : setStatus(Arrow)
 
-        /*
-        if(auth.actualStep == 2 || auth.feedbacks.length > 0){
-            setStatus(Waiting)
-            setActive(false)
-        } else {
-            setStatus(Arrow)
-            setActive(true)
-        }
-        */
+        //exibindo ícone de ?
+        !auth.nextStep && !auth.loading ? setStatus(Waiting) : setStatus(Arrow)
+
     }, [auth])
 
     const handleNextStep = useCallback(
