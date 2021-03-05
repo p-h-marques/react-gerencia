@@ -79,3 +79,5 @@ async function fetchUser(email, dispatchAuth){
   return result
 }
 ```
+
+Testes
