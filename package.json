@@ -3,10 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.8",
-    "@testing-library/react": "^11.2.3",
-    "@testing-library/user-event": "^12.6.0",
-    "cypress": "^3.6.0",
     "js-brasil": "^2.3.8",
     "react": "^17.0.1",
     "react-brazil": "^2.3.1",
@@ -20,7 +16,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "cypress open",
-    "eject": "react-scripts eject",
     "lint": "eslint --fix --ext .js,.jsx ."
   },
   "eslintConfig": {
@@ -42,6 +37,8 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^3.6.0",
+    "cypress-localstorage-commands": "^1.4.1",
     "eslint": "^7.19.0",
     "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-react": "^7.22.0"

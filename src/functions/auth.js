@@ -1,7 +1,7 @@
 import {validateBr} from 'js-brasil'
 import * as authActions from '../state/auth/actions'
 
-const STORAGE_RECOVER = 'recover'
+export const STORAGE_RECOVER = 'recover'
 
 //buscando usuário na API
 async function fetchUser(email, dispatchAuth){

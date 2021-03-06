@@ -10,6 +10,12 @@ import Button from './Button'
 const Main = () => {
     const { auth, dispatchToAuth } = useContext(AuthContext)
 
+    /*
+    useEffect(() => {
+        console.log(auth)
+    }, [auth])
+    */
+
     useEffect(()=>{
         //botão lateral acompanhando validações
         authFunctions.handleLiveAsideActivation(
@@ -93,7 +99,7 @@ const Main = () => {
                         </h1>
                         <div className="buttons">
                             <Button highlight={true} label="sim, vamos lá!" onClick={()=>{ handleStepChange(3) }}/>
-                            <Button highlight={false} label="quero tentar outro email.." onClick={()=>{
+                            <Button highlight={false} label="quero tentar outro email..." onClick={()=>{
                                 dispatchToAuth(authActions.refreshState())
                             }}/>
                         </div>

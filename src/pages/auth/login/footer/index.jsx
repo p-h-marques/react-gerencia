@@ -45,8 +45,19 @@ const Footer = () => {
         <FooterStyles>
             {
                 auth.actualStep !== 6
-                    ? (<span onClick={handleForgotPass}>Esqueceu sua senha?</span>)
-                    : (<span onClick={handleBackToLogin}>Voltar ao login normal</span>)
+                    ? (
+                        <span
+                            data-cy="footerLink"
+                            onClick={handleForgotPass}>
+                                Esqueceu sua senha?
+                        </span>
+                    ) : (
+                        <span
+                            data-cy="footerLink"
+                            onClick={handleBackToLogin}>
+                                Voltar ao login normal
+                        </span>
+                    )
             }
         </FooterStyles>
     )
