@@ -9,6 +9,8 @@ Olá! Esse é um pequeno projeto de um futuro gerenciador financeiro, do qual ex
 - **eslint & prettier** para manter o padrão de código consistente;
 - **testes funcionais com cypress** para certificar que todos os casos de uso estão perfeitos.
 
+Caso queira dar uma brincada, ele está disponível [aqui!](https://gerencia-771f4.web.app/login)
+
 ## Dinâmicas contempladas
 
 Para esse fluxo de telas, os processos de login, cadastro, recuperação e redefinição de senha foram viabilizados e mesclados em um mesmo fluxo. Como ainda preciso fazer o backend dessa aplicação, forjei as requisições e validações com um arquivo JSON estático, mas em breve isso mudará :D
