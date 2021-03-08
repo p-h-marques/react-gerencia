@@ -12,7 +12,7 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_GERENCIA_63E05 }}'
-          projectId: gerencia-63e05
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_GERENCIA_771F4 }}'
+          projectId: gerencia-771f4
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
