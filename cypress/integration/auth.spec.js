@@ -2,6 +2,8 @@
 
 import {STORAGE_RECOVER} from '../../src/functions/auth'
 
+const url = 'https://gerencia-771f4.web.app/login'
+
 const userTest = {
     email: 'dg.pedromarques@gmail.com',
     name: 'Pedro Marques',
@@ -18,7 +20,7 @@ const userTest = {
 
 describe('logando usuário previamente autenticado', ()=>{
     before(()=>{
-        cy.visit('http://localhost:3000/login')
+        cy.visit(url)
     })
 
     it('prosseguindo sem email digitado', ()=>{
@@ -58,7 +60,7 @@ describe('logando usuário previamente autenticado', ()=>{
 
 describe('cadastrando novo usuário', ()=>{
     before(()=>{
-        cy.visit('http://localhost:3000/login')
+        cy.visit(url)
     })
 
     it('digitando email do novo usuário', ()=>{
@@ -105,7 +107,7 @@ describe('cadastrando novo usuário', ()=>{
 
 describe('recuperando a senha', ()=>{
     before(()=>{
-        cy.visit('http://localhost:3000/login')
+        cy.visit(url)
     })
 
     it('entrando no fluxo de recuperação de senha', ()=>{
