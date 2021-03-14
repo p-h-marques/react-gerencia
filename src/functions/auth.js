@@ -2,6 +2,7 @@ import {validateBr} from 'js-brasil'
 import * as authActions from '../state/auth/actions'
 
 export const STORAGE_RECOVER = 'recover'
+export const STORAGE_SESSION = 'session'
 
 //buscando usuário na API
 async function fetchUser(email, dispatchAuth){
@@ -130,6 +131,8 @@ export function handleGuestPass(pass, dispatch){
     dispatch(authActions.simpleUpdate({
         actualStep: 5
     }))
+
+    dispatch(authActions.saveSession())
 }
 
 //efetuando login
@@ -151,6 +154,8 @@ export async function handleLogin(user, dispatch){
             actualStep: 5,
             loading: false
         }))
+
+        dispatch(authActions.saveSession())
 
         return true
 
@@ -227,38 +232,40 @@ export function handleRecoverCode(code, dispatch){
         actualStep: 5,
         loading: false
     }))
+
+    dispatch(authActions.saveSession())
 }
 
 //atualizando aside em tempo de digitação
 export function handleLiveAsideActivation(user, step, dispatch){
     switch (step) {
-    case 0:
-    case 6:
-        dispatch(authActions.simpleUpdate({
-            nextStep: validateBr.email(user.email)
-        }))
-        break
+        case 0:
+        case 6:
+            dispatch(authActions.simpleUpdate({
+                nextStep: validateBr.email(user.email)
+            }))
+            break
 
-    case 1:
-    case 4:
-        dispatch(authActions.simpleUpdate({
-            nextStep: validatePass(user.pass).length === 0
-        }))
-        break
+        case 1:
+        case 4:
+            dispatch(authActions.simpleUpdate({
+                nextStep: validatePass(user.pass).length === 0
+            }))
+            break
 
-    case 3:
-        dispatch(authActions.simpleUpdate({
-            nextStep: user.name.length > 4
-        }))
-        break
+        case 3:
+            dispatch(authActions.simpleUpdate({
+                nextStep: user.name.length > 4
+            }))
+            break
 
-    case 8:
-        dispatch(authActions.simpleUpdate({
-            nextStep: user.recoverCode.length === 6
-        }))
-        break
+        case 8:
+            dispatch(authActions.simpleUpdate({
+                nextStep: user.recoverCode.length === 6
+            }))
+            break
 
-    default:
-        break
+        default:
+            break
     }
 }

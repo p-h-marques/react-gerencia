@@ -70,3 +70,9 @@ export function resetUser(feedbacks){
         }
     }
 }
+
+export function saveSession(){
+    return {
+        type: authTypes.SAVE_SESSION
+    }
+}

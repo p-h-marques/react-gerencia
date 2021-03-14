@@ -24,40 +24,40 @@ const Aside = () => {
     const handleNextStep = useCallback(
         () => {
             switch (auth.actualStep) {
-            case 0:
-                authFunctions.handleGuestEmail(auth.user.email, dispatchToAuth)
-                break
+                case 0:
+                    authFunctions.handleGuestEmail(auth.user.email, dispatchToAuth)
+                    break
 
-            case 1:
-                authFunctions.handleLogin(auth.user, dispatchToAuth)
-                break
+                case 1:
+                    authFunctions.handleLogin(auth.user, dispatchToAuth)
+                    break
 
-            case 3:
-                authFunctions.handleGuestName(auth.user.name, dispatchToAuth)
-                break
+                case 3:
+                    authFunctions.handleGuestName(auth.user.name, dispatchToAuth)
+                    break
 
-            case 4:
-                authFunctions.handleGuestPass(auth.user.pass, dispatchToAuth)
-                break
+                case 4:
+                    authFunctions.handleGuestPass(auth.user.pass, dispatchToAuth)
+                    break
 
-            case 6:
-                authFunctions.handleEmailRecover(auth.user.email, dispatchToAuth)
-                break
+                case 6:
+                    authFunctions.handleEmailRecover(auth.user.email, dispatchToAuth)
+                    break
 
-            case 7:
-                dispatchToAuth(authActions.simpleUpdate({
-                    actualStep: 8,
-                    nextStep: false
-                }))
-                break
+                case 7:
+                    dispatchToAuth(authActions.simpleUpdate({
+                        actualStep: 8,
+                        nextStep: false
+                    }))
+                    break
 
-            case 8:
-                authFunctions.handleRecoverCode(auth.user.recoverCode, dispatchToAuth)
-                break
+                case 8:
+                    authFunctions.handleRecoverCode(auth.user.recoverCode, dispatchToAuth)
+                    break
 
-            default:
-                console.log(auth.actualStep)
-                break
+                default:
+                    console.log(auth.actualStep)
+                    break
             }
         },
         [auth],

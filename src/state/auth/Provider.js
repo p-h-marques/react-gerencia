@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react'
 import AuthContext from './Context'
 import authReducer from './reducers'
+import * as authFunctions from '../../functions/auth'
 
 export const initialState = {
     'actualStep': 0,
@@ -15,8 +16,21 @@ export const initialState = {
     'nextStep': false
 }
 
+function fetchSessionStorage(defaultState){
+    const fetchedState = sessionStorage.getItem(authFunctions.STORAGE_SESSION)
+
+    return fetchedState
+        ? JSON.parse(fetchedState)
+        : defaultState
+}
+
 function Provider({ children }) {
-    const [auth, dispatchToAuth] = useReducer(authReducer, initialState)
+    const [auth, dispatchToAuth] = useReducer(
+        authReducer,
+        initialState,
+        fetchSessionStorage
+    )
+
     return (
         <AuthContext.Provider value={{ auth, dispatchToAuth }}>
             {children}
