@@ -47,13 +47,13 @@ const Footer = () => {
                 auth.actualStep !== 6
                     ? (
                         <span
-                            data-cy="footerLink"
+                            data-test="userRecover"
                             onClick={handleForgotPass}>
                                 Esqueceu sua senha?
                         </span>
                     ) : (
                         <span
-                            data-cy="footerLink"
+                            data-test="userRecover"
                             onClick={handleBackToLogin}>
                                 Voltar ao login normal
                         </span>

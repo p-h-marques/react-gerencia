@@ -64,7 +64,8 @@ const Aside = () => {
     )
 
     return (
-        <AsideStyles onClick={handleNextStep} className={!auth.nextStep ? 'disabled' : ''}>
+        <AsideStyles onClick={handleNextStep} data-test="asideButton"
+            className={!auth.nextStep ? 'disabled' : ''}>
             <img src={status}
                 alt="Confirmar"></img>
         </AsideStyles>

@@ -8,12 +8,12 @@ import Logo from '../../../../assets/auth/logo-horizontal-cores.svg'
 const Header = () => {
     const { auth } = useContext(AuthContext)
     const [ hasUserInfo, setHasUserInfo ] = useState(false)
+    const [ headerClass, setHeaderClass ] = useState('')
 
     useEffect(()=>{
         setHasUserInfo(auth.user.name !== '' || auth.user.email !== '')
+        setHeaderClass(hasUserInfo ? ' border' : '')
     }, [hasUserInfo, auth])
-
-    const headerClass = hasUserInfo ? ' border' : ''
 
     return (
         <HeaderStyles>

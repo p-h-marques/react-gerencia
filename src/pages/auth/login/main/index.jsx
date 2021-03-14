@@ -56,7 +56,7 @@ const Main = () => {
                 auth.actualStep === 0 && (
                     <>
                         <h1>Olá! Digite seu melhor email:</h1>
-                        <input type="email" name="email" id="email"
+                        <input type="email" name="email" data-test="email"
                             placeholder="exemplo@dominio.com.br" value={auth.user.email}
                             onChange={  e => {
                                 dispatchToAuth(authActions.updateUser(e.target.value, 'email'))
@@ -75,7 +75,7 @@ const Main = () => {
                 auth.actualStep === 1 && (
                     <>
                         <h1>Digite sua senha:</h1>
-                        <input type="password" name="newpass" id="newpass" autoComplete="off"
+                        <input type="password" name="newpass" data-test="userPass" autoComplete="off"
                             placeholder="digite aqui sua senha, por favor!" value={auth.user.pass}
                             onChange={ e => {
                                 dispatchToAuth(authActions.updateUser(e.target.value, 'pass'))
@@ -110,7 +110,7 @@ const Main = () => {
                 auth.actualStep === 3 && (
                     <>
                         <h1>Vamos nos conhecer melhor?</h1>
-                        <input type="text" name="name" id="name"
+                        <input type="text" name="name" data-test="name"
                             placeholder="digite aqui seu nome, por favor!" value={auth.user.name}
                             onChange={ e => {
                                 dispatchToAuth(authActions.updateUser(e.target.value, 'name'))
@@ -127,7 +127,7 @@ const Main = () => {
                 auth.actualStep === 4 && (
                     <>
                         <h1>Vamos escolher sua futura senha?</h1>
-                        <input type="password" name="pass" id="pass" autoComplete="off"
+                        <input type="password" name="pass" data-test="newUserPass" autoComplete="off"
                             placeholder="digite aqui sua senha, por favor!" value={auth.user.pass}
                             onChange={ e => {
                                 dispatchToAuth(authActions.updateUser(e.target.value, 'pass'))
@@ -146,8 +146,8 @@ const Main = () => {
             {
                 auth.actualStep === 6 && (
                     <>
-                        <h1>Para recuperar sua conta,<br />precisamos saber seu email:</h1>
-                        <input type="email" name="recoveremail" id="recoveremail"
+                        <h1 data-test="messageRecover">Para recuperar sua conta,<br />precisamos saber seu email:</h1>
+                        <input type="email" name="recoveremail" data-test="emailRecover"
                             placeholder="exemplo@dominio.com.br" value={auth.user.email}
                             onChange={  e => {
                                 dispatchToAuth(authActions.updateUser(e.target.value, 'email'))
@@ -177,7 +177,7 @@ const Main = () => {
                 auth.actualStep === 8 && (
                     <>
                         <h1>Digite aqui o código de recuperação<br />enviado pro seu email:</h1>
-                        <input type="email" name="recovercode" id="recovercode"
+                        <input type="email" name="recovercode" data-test="recoverCode"
                             placeholder="000000" value={auth.user.recoverCode}
                             onChange={  e => {
                                 dispatchToAuth(authActions.updateUser(e.target.value, 'recoverCode'))
