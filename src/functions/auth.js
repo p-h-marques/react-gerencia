@@ -4,6 +4,9 @@ import * as authActions from '../state/auth/actions'
 export const STORAGE_RECOVER = 'recover'
 export const STORAGE_SESSION = 'session'
 
+const api = 'https://gerencia-api.herokuapp.com/api'
+// const api = 'http://127.0.0.1:8000/api/auth/fetch'
+
 //buscando usuário na API
 async function fetchUser(email, dispatchAuth){
     dispatchAuth(authActions.simpleUpdate({
@@ -11,21 +14,17 @@ async function fetchUser(email, dispatchAuth){
     }))
 
     const options = {
-        method: 'GET',
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({email})
     }
 
-    let errorRequest = false
 
-    const request = await fetch('data/users.json', options)
-        .then(resp => resp.json())
-        .then(resp => { return resp })
-        .catch(() => { errorRequest = true })
+    const request = await fetch(api + '/auth/fetch', options)
 
-    if(errorRequest){
+    if(request.status == 500){
         dispatchAuth(authActions.simpleUpdate({
             feedbacks: ['ocorreu algum erro ao buscar seu email :('],
             loading: false
@@ -34,9 +33,16 @@ async function fetchUser(email, dispatchAuth){
         return false
     }
 
-    const result = await request.filter(val => { return val.email == email })
+    if(request.status !== 404){
+        const response = await request.json()
+        dispatchAuth(authActions.welcomeUser(response.data))
 
-    return result
+        return response
+    }
+
+    dispatchAuth(authActions.welcomeGuest(email))
+
+    return request
 }
 
 //fazendo código de recuperação e salvando no local storage
@@ -78,7 +84,7 @@ function validatePass(pass){
 export function handleGuestEmail(email, dispatch){
     if(validateBr.email(email)){
 
-        fetchEmailGuest(email, dispatch)
+        fetchUser(email, dispatch)
 
     } else {
 
@@ -87,15 +93,6 @@ export function handleGuestEmail(email, dispatch){
         }))
 
     }
-}
-
-//verificando se email digitado é de um usuário ou visitante
-export async function fetchEmailGuest(email, dispatch){
-    const result = await fetchUser(email, dispatch)
-
-    result.length == 1
-        ? dispatch(authActions.welcomeUser(result[0]))
-        : dispatch(authActions.welcomeGuest(email))
 }
 
 //validando nome de usuário
@@ -137,36 +134,51 @@ export function handleGuestPass(pass, dispatch){
 
 //efetuando login
 export async function handleLogin(user, dispatch){
+    dispatch(authActions.simpleUpdate({
+        loading: true
+    }))
 
-    const result = await fetchUser(user.email, dispatch)
-
-    if(result.length !== 1){
-        dispatch(authActions.resetUser(['o seu email não foi encontrado']))
-
-        return false
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            email: user.email,
+            password: user.pass
+        })
     }
 
-    const validatePassword = result[0].password === user.pass
+    const request = await fetch(api + '/auth/login', options)
 
-    if(validatePassword){
-
+    if(request.status == 500){
         dispatch(authActions.simpleUpdate({
-            actualStep: 5,
-            loading: false
-        }))
-
-        dispatch(authActions.saveSession())
-
-        return true
-
-    } else {
-        dispatch(authActions.simpleUpdate({
-            feedbacks: ['senha inválida, tente novamente'],
+            feedbacks: ['ocorreu algum erro ao efetuar seu login :('],
             loading: false
         }))
 
         return false
     }
+
+    if(request.status == 401){
+        dispatch(authActions.simpleUpdate({
+            feedbacks: ['email ou senha inválidos :('],
+            loading: false
+        }))
+
+        return false
+    }
+
+    // const response = await request.json()
+
+    dispatch(authActions.simpleUpdate({
+        actualStep: 5,
+        loading: false
+    }))
+
+    dispatch(authActions.saveSession())
+
+    return true
 }
 
 //buscando email de usuário e gerando código de recuperação

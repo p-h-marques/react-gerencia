@@ -6,7 +6,7 @@ import loc from '../support/locators'
 const userTest = {
     email: 'dg.pedromarques@gmail.com',
     name: 'Pedro Marques',
-    password: 'teste1234',
+    password: '@Tauba1474',
     newEmail: 'pedrohenriquesv@outlook.com',
     newName: 'Pedro Henrique',
     newPassword: 'asdf1709',
@@ -17,7 +17,7 @@ const userTest = {
     recoverCode: '123456'
 }
 
-describe('logando usuário previamente autenticado', ()=>{
+describe.only('logando usuário previamente autenticado', ()=>{
     before(()=>{
         cy.resetNavigator()
     })
@@ -35,6 +35,7 @@ describe('logando usuário previamente autenticado', ()=>{
     it('digitando email do usuário', ()=>{
         cy.get(loc.userEmail).type(`{selectAll}${userTest.email}`)
         cy.get(loc.asideButton).click()
+        cy.get(loc.userPass).should('exist')
     })
 
     it('prosseguindo com senha vazia', ()=>{

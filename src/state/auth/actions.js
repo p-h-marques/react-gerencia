@@ -15,6 +15,7 @@ export function simpleUpdate(newState){
 }
 
 export function welcomeUser(user){
+    console.log(user)
     //atualiza estado pro step 1 (loggingIn)
     return{
         type: authTypes.WELCOME,

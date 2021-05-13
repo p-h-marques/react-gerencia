@@ -13,11 +13,15 @@ const Aside = () => {
     const [ status, setStatus ]    = useState(Arrow)
 
     useEffect(() => {
-        //exibindo ícone de carregamento
-        auth.loading ? setStatus(Loading) : setStatus(Arrow)
+        if(!auth.nextStep && !auth.loading){
+            setStatus(Waiting)
+        } else if (auth.loading) {
+            setStatus(Loading)
+        } else {
+            setStatus(Arrow)
+        }
 
-        //exibindo ícone de ?
-        !auth.nextStep && !auth.loading ? setStatus(Waiting) : setStatus(Arrow)
+        console.log(auth)
 
     }, [auth])
 
